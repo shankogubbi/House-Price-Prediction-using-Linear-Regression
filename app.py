@@ -2,18 +2,28 @@ import streamlit as st
 import joblib
 import numpy as np
 
+# Load trained model
 model = joblib.load("house_price_model.pkl")
 
 st.title("🏠 House Price Prediction")
 
-features = np.array([[
-    MedInc, HouseAge, AveRooms, AveBedrms,
-    Population, AveOccup
-]])
+# User inputs
+MedInc = st.number_input("Median Income", value=5.0)
+HouseAge = st.number_input("House Age", value=20.0)
+AveRooms = st.number_input("Average Rooms", value=5.0)
+AveBedrms = st.number_input("Average Bedrooms", value=1.0)
+Population = st.number_input("Population", value=1000.0)
+AveOccup = st.number_input("Average Occupancy", value=3.0)
+
+# Predict only when button is clicked
 if st.button("Predict Price"):
     features = np.array([[
-        MedInc, HouseAge, AveRooms, AveBedrms,
-        Population, AveOccup
+        MedInc,
+        HouseAge,
+        AveRooms,
+        AveBedrms,
+        Population,
+        AveOccup
     ]])
 
     prediction = model.predict(features)[0]
